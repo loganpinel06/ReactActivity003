@@ -31,6 +31,11 @@ class App extends React.Component {
         };
     }
 
+    //update the saveChanges to update the movie data in the state
+    saveChanges = (index, movie) => {
+        console.log(index, movie);
+    }
+
     render() {
         // grab one sample movie
         const sample = movieData[0];
@@ -38,10 +43,14 @@ class App extends React.Component {
         return (
             <main className="container">
                 <section className="columns has-background-light">
-                <MovieList movies={ movieData }/>
+                {/* update the MovieList to pass the movies from the state*/}
+                <MovieList movies={ this.state.movies }/>
                 <div className="column is-half">
-
-                        <MovieForm movie={sample}    />
+                    {/* update the MovieForm to pass the movies from the state and the saveChanges function*/}
+                    {/* use the map function to create a list of the movies passed in the state*/}
+                    { this.state.movies.map( (m, index) =>
+                        <MovieForm movie={m} index={index} key={m.id} saveChanges={this.saveChanges} />
+                    ) }
                 </div>
                 </section>
             </main>                
