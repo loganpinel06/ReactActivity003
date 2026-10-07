@@ -23,6 +23,14 @@
 */
 class App extends React.Component {
 
+    //constructor for props
+    constructor(props) {
+        super(props);
+        this.state = {
+            movies: movieData
+        };
+    }
+
     render() {
         // grab one sample movie
         const sample = movieData[0];
@@ -98,7 +106,8 @@ render() {
     return (
         <div className="column is-half">
             <ul className="columns is-multiline">
-                <SingleMovie  /> 
+                {/* update the SingleMovie to create a list of the movies passed in the props using the map function*/}
+                { this.props.movies.map( m => <SingleMovie movie={m} key={m.id} /> ) }
             </ul>   
         </div>   
     );
@@ -113,20 +122,26 @@ class SingleMovie extends React.Component {
 
 
 render() {
+    //grab the movie from the props
+    const movie = this.props.movie;
     return (
         <li className="column is-one-third-desktop is-half-tablet"  >
             <div className="card">
                 <div className="card-image">
                 <figure className="image is-2by3">
-                    <img src="https://image.tmdb.org/t/p/w185/sm8iVzA7kRp0d4BSIsgXjsSBMKV.jpg"  alt="Sample Title" />
+                    {/* update the image src to the tmdb poster  and the alt to the title of the movie passed in the props*/}
+                    <img src={ "https://image.tmdb.org/t/p/w185" + movie.poster }  alt={ movie.title } />
                 </figure>
                 </div>
                 <div className="card-content has-text-centered content-rectangle">
-                    <h2 className="title is-6">Sample Title (000 min)</h2>
-                    <p className="is-size-7">Sample tagline</p>
+                    {/* update the title and runtime to the values passed in the props*/}
+                    <h2 className="title is-6">{ movie.title } ({ movie.runtime } min)</h2>
+                    {/* update the tagline to the value passed in the props*/}
+                    <p className="is-size-7">{ movie.tagline }</p>
                 </div>    
                 <footer className="card-footer">
-                    <MovieLink id="sm8iVzA7kRp0d4BSIsgXjsSBMKV" />
+                    {/* update the MovieLink to get the correct tmdbID*/}
+                    <MovieLink tmdbID={ movie.tmdbID } />
                 </footer>                                      
             </div>                
         </li>
@@ -141,9 +156,10 @@ render() {
 ------------------------------------------------------------------------------------------------------------------
 */
 const MovieLink = props => {
+    //update the props to the tmdbID not just id
   return (
         <a className="button card-footer-item" 
-            href={ "https://www.themoviedb.org/movie/" + props.id } >
+            href={ "https://www.themoviedb.org/movie/" + props.tmdbID } >
 
                 <img src="images/tmdb.svg" width="30" />
         </a>    
