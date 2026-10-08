@@ -65,8 +65,17 @@ class App extends React.Component {
 */
 class MovieForm extends React.Component {
 
+    //handle change event to update the movie data in the state
+    handleChange = (e) => {
+        //update the movie data in the state
+        const updatedMovie = { ...this.props.movie, [e.target.name]: e.target.value };
+        //call the saveChanges function to update the movie data in the state
+        this.props.saveChanges(this.props.index, updatedMovie);
+    }
 
     render() {
+        //grab the movie from the props
+        const movie = this.props.movie;
         return (
             <form className="panel has-background-grey-lighter"  >
 
@@ -76,7 +85,8 @@ class MovieForm extends React.Component {
                     </div>
                     <div className="field-body">
                         <input className="input" type="text" name="title"
-                            value="sample title" />   
+                            //update the value and onChange to the title of the movie passed in the props
+                            value={ movie.title } onChange={ this.handleChange } />   
                     </div>
                 </div>   
 
@@ -86,7 +96,8 @@ class MovieForm extends React.Component {
                     </div>
                     <div className="field-body">
                         <textarea className="textarea" rows="2"  name="tagline"
-                            value="sample tagline"></textarea>
+                            //update the value and onChange to the tagline of the movie passed in the props
+                            value={ movie.tagline } onChange={ this.handleChange }></textarea>
                     </div>
                 </div>                  
 
@@ -96,7 +107,8 @@ class MovieForm extends React.Component {
                     </div>
                     <div className="field-body">
                         <input className="input" type="text" name="runtime"
-                            value="sample runtime"/>   
+                            //update the value and onChange to the runtime of the movie passed in the props
+                            value={ movie.runtime } onChange={ this.handleChange }/>   
                     </div>
                 </div>    
                                                   
