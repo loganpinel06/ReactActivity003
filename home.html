@@ -33,7 +33,11 @@ class App extends React.Component {
 
     //update the saveChanges to update the movie data in the state
     saveChanges = (index, movie) => {
-        console.log(index, movie);
+        const movies = [...this.state.movies];
+        //update the movie data in the state
+        movies[index] = movie;
+        //update the state with the new movie data
+        this.setState({ movies: movies });
     }
 
     render() {
